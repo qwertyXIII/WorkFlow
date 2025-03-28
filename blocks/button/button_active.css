@@ -1,0 +1,6 @@
+.button_active {
+  background-color: #007aff;
+}
+.button_active > .button__img{
+  fill: white;
+}

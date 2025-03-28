@@ -1,0 +1,10 @@
+.popup__window {
+  transition: .3s;
+  background-color: #262628;
+  border-radius: 18px;
+  padding: 10px;
+  box-sizing: border-box;
+  max-width: 90vw;
+  max-height: 90vh;
+  margin: 0 0 -200px 0;
+}

@@ -1,0 +1,36 @@
+.button {
+  max-width: 1000px;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: white;
+  gap: 10px;
+  height: 30px;
+  padding: 5px;
+  border-radius: 8px;
+  transition:
+    left .3s,
+    margin .5s,
+    max-width .5s,
+    top .5s,
+    opacity .3s,
+    padding .9s,
+    filter .5s;
+  left: 0;
+  top: 0;
+  position: relative;
+  opacity: 1;
+  overflow: hidden;
+}
+.button:hover {
+  background-color: #4b4b4c;
+}
+.button:active {
+  background-color: #585858;
+}
+.button:hover .button__img_2 {
+  opacity: 1;
+}

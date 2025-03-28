@@ -1,0 +1,6 @@
+.switch__input {
+  visibility: hidden;
+}
+.switch__input:checked + .switch__thumb::after {
+  left: calc(100% - 22.5px);
+}

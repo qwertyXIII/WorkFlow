@@ -1,0 +1,5 @@
+.sidebar_active {
+  width: 300px;
+  padding: 40px 10px 10px 10px;
+  border-right: black 1px solid;
+}

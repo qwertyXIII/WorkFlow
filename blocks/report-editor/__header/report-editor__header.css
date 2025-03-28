@@ -1,0 +1,7 @@
+.report-editor__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+  margin: 0 0 10px 0;
+}

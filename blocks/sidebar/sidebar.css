@@ -1,0 +1,14 @@
+.sidebar {
+  background-color: #262628;
+  grid-area: sidebar;
+  height: 100%;
+  transition: .3s;
+  width: 0;
+  border-right: none;
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: 40px 0 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}

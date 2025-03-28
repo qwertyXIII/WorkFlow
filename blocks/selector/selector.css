@@ -1,0 +1,14 @@
+.selector {
+  height: 100px;
+  scroll-snap-type: y mandatory;
+  overflow-x: hidden;
+  flex-flow: column nowrap;
+  display: flex;
+  flex-direction: column;
+  gap: 75px;
+  padding: 50px 0;
+  box-sizing: border-box;
+}
+.selector::-webkit-scrollbar {
+  width: 0 !important
+}

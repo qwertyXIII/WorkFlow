@@ -1,0 +1,12 @@
+.multi-switcher {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  grid-template-rows: 1fr;
+  background-color: #262628;
+  border-radius: 8px;
+  height: 30px;
+  position: relative;
+  transition: .3s;
+  padding: 0 5px;
+}

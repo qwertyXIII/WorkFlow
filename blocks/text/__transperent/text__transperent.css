@@ -1,0 +1,5 @@
+.text__transperent {
+  color: transparent;
+  filter: blur(2px);
+  scale: .95;
+}

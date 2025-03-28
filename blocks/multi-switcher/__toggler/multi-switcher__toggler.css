@@ -1,0 +1,18 @@
+.multi-switcher__toggler {
+  position: absolute;
+  height: 20px;
+  background-color: #323237;
+  border-radius: 5px;
+  z-index: 49;
+  left: 5px;
+  transition: .3s;
+}
+.multi-switcher_x3 .multi-switcher__toggler {
+  width: 33.3%;
+}
+.multi-switcher__container:nth-of-type(2):has(.multi-switcher__radio:checked) ~ .multi-switcher__toggler{
+  left: 33%
+}
+.multi-switcher__container:nth-of-type(3):has(.multi-switcher__radio:checked) ~ .multi-switcher__toggler{
+  left: calc(66% - 2px);
+}

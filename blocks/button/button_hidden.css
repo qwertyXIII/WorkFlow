@@ -1,0 +1,7 @@
+.button_hidden {
+  max-width: 0px !important;
+  padding: 0px;
+  top: 0;
+  opacity: 0;
+  filter: blur(4px);
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+.y {
+  width: 256px;
+  height: 256px;
+  flex-flow: column nowrap;
+  overflow-x: hidden;
+}
+.y.mandatory-scroll-snapping {
+  scroll-snap-type: y mandatory;
+}
+
+div {
+  text-align: center;
+  scroll-snap-align: center;
+  flex: none;
+  font-size: 10px;
+}
+
+.y div {
+  font-size: 10px;
+  width: 256px;
+  height: 100%;
+}
+
+/* appearance fixes */
+.y div:first-child {
+  line-height: 1.3;
+  font-size: 64px;
+}
+
+
+  </style>
+</head>
+
+<body>
+
+
+  <section class="y mandatory-scroll-snapping" dir="ltr">
+    <div>
+      <div>element 1</div>
+    </div>
+    <div>
+      <div>element 2</div>
+    </div>
+    <div>
+      <div>element 3</div>
+    </div>
+    <div>
+      <div>element 4</div>
+    </div>
+  </section>
+
+</body>
+
+</html>

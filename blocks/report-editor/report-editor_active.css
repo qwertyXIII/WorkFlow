@@ -1,0 +1,5 @@
+.report-editor_active {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}

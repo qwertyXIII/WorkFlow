@@ -1,3 +1,94 @@
-/*общ. стили*/
+/* ОБЩЕЕ */
 @import url(../vendor/normalize.css);
+@import url(../blocks/font/font.css);
 @import url(../blocks/page/page.css);
+/* TEXT */
+@import url(../blocks/text/text.css);
+@import url(../blocks/text/__big/text__big.css);
+@import url(../blocks/text/__transperent/text__transperent.css);
+/* LOADER */
+@import url(../blocks/loader/loader.css);
+@import url(../blocks/loader/loader_hiden.css);
+@import url(../blocks/loader/__heading/loader__heading.css);
+@import url(../blocks/loader/__text/loader__text.css);
+/* РАЗНОЕ */
+@import url(../blocks/separator/separator.css);
+@import url(../blocks/ul/ul.css);
+/* BUTTON */
+@import url(../blocks/button/button.css);
+@import url(../blocks/button/button_hidden.css);
+@import url(../blocks/button/button_active.css);
+@import url(../blocks/button/__text/button__text.css);
+@import url(../blocks/button/__img/button__img.css);
+@import url(../blocks/button/__img/button___img_2.css);
+/* HEADER */
+@import url(../blocks/header/header.css);
+@import url(../blocks/header/__button/header__button.css);
+@import url(../blocks/header/__container/header__container.css);
+@import url(../blocks/header/__heading/header__heading.css);
+/* PROGRESS BAR */
+@import url(../blocks/progress-bar/progress-bar.css);
+@import url(../blocks/progress-bar/__thumb/progress-bar__thumb.css);
+@import url(../blocks/progress-bar/__status/progress-bar__status.css);
+@import url(../blocks/progress-bar/progress-bar_hidden.css);
+/* SIDEBAR */
+@import url(../blocks/sidebar/sidebar.css);
+@import url(../blocks/sidebar/sidebar_active.css);
+@import url(../blocks/sidebar/__text/sidebar__text.css);
+@import url(../blocks/sidebar/__text/sidebar__text_small.css);
+/* WORKSPACE */
+@import url(../blocks/workspace/workspace.css);
+@import url(../blocks/workspace/workspace_active.css);
+/* POPUP */
+@import url(../blocks/popup/popup.css);
+@import url(../blocks/popup/popup_active.css);
+@import url(../blocks/popup/__window/popup__window.css);
+@import url(../blocks/popup/__header/popup__header.css);
+@import url(../blocks/popup/__name/popup__name.css);
+@import url(../blocks/popup/__text/popup__text.css);
+/* REPORT EDITOR */
+@import url(../blocks/report-editor/report-editor.css);
+@import url(../blocks/report-editor/report-editor_active.css);
+@import url(../blocks/report-editor/__subtitle/report-editor__subtitle.css);
+@import url(../blocks/report-editor/__header/report-editor__header.css);
+@import url(../blocks/report-editor/__name/report-editor__name.css);
+@import url(../blocks/report-editor/__container/report-editor__container.css);
+@import url(../blocks/report-editor/__button/report-editor__button.css);
+@import url(../blocks/report-editor/__text/report-editor__text.css);
+/* MULTI SWITCHER */
+@import url(../blocks/multi-switcher/multi-switcher.css);
+@import url(../blocks/multi-switcher/multi-switcher_x3.css);
+@import url(../blocks/multi-switcher/__radio/multi-switcher__radio.css);
+@import url(../blocks/multi-switcher/__label/multi-switcher__label.css);
+@import url(../blocks/multi-switcher/__container/multi-switcher__container.css);
+@import url(../blocks/multi-switcher/__toggler/multi-switcher__toggler.css);
+/* SWITCH */
+@import url(../blocks/switch/switch.css);
+@import url(../blocks/switch/__input/switch__input.css);
+@import url(../blocks/switch/__thumb/switch__thumb.css);
+/* SELECTOR */
+@import url(../blocks/selector/selector.css);
+@import url(../blocks/selector/__element/selector__element.css);
+
+
+
+
+
+
+
+/* //////////////// TEST ZONE //////////////// */
+.report-editor__week-picker {
+  justify-content: space-evenly;
+  gap: 0;
+}
+.report-editor__week-picker
+.report-editor__week-picker-arrow {
+  height: 30px;
+  fill: white;
+}
+
+
+
+
+
+

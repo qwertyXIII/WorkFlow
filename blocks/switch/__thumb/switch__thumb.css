@@ -1,0 +1,19 @@
+.switch__thumb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+}
+.switch__thumb::after {
+  position: absolute;
+  content: "";
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 25px;
+  top: 2.5px;
+  left: 2.5px;
+  transition: .3s;
+}
