@@ -23,6 +23,12 @@ export const form = {
   reporteditor: document.querySelector('#report-editor-form')
 }
 
+export const selector = {
+  all: document.querySelectorAll('.selector'),
+  weekSelectorStart: document.querySelector('.startweek'),
+  weekSelectorEnd: document.querySelector('.endweek')
+}
+
 export const headerHeading = document.querySelector('.header__heading');
 
 export const tabsButtons = document.querySelectorAll('.button__tab');

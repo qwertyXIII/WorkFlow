@@ -7,7 +7,9 @@ import {
   tabsButtons,
   sidebar,
   headerButtons,
-  progressBarCurrentState
+  progressBarCurrentState,
+  selector,
+  localDB
 } from "./utils/constants.js"
 
 
@@ -22,9 +24,7 @@ import {
 import {
   generateReport
 } from "./components/generateReport.js";
-
-
-
+import { selectorObserver } from "./components/selectorObserver.js";
 
 
 
@@ -169,8 +169,9 @@ form.reporteditor.addEventListener('submit', (e) => {
       //////////////////////////////////////////////////////////////
       break;
     case 'week':
-      progressBarCurrentState.max = e.target.querySelector('.end-week').value - e.target.querySelector('.start-week').value + 1;
-      for (let i = e.target.querySelector('.start-week').value; i - 1 < e.target.querySelector('.end-week').value; i++) {
+      progressBarCurrentState.max = selector.weekSelectorEnd.getAttribute('value') - selector.weekSelectorStart.getAttribute('value') + 1;
+      //localDB = [];
+      for (let i = selector.weekSelectorStart.getAttribute('value'); i - 1 < selector.weekSelectorEnd.getAttribute('value'); i++) {
         generateReport(
           'penitration',
           dateByWeekNumber(2025, i).startDate,
@@ -185,8 +186,15 @@ form.reporteditor.addEventListener('submit', (e) => {
   }
 });
 
+// Заставляем селекторы работать
+selector.all.forEach(element => {
+  selectorObserver(element)
+});
+
 window.onload = () => {
-  document.querySelector('.loader').classList.add('loader_hiden')
+  setTimeout(() => {
+    document.querySelector('.loader').classList.add('loader_hiden')
+  }, 1000);
 }
 
 
@@ -195,24 +203,6 @@ window.onload = () => {
 /* //////////////// TEST ZONE //////////////// */
 
 
-const selectors = document.querySelectorAll('.selector')
-
-function getSelectorValue(selector) {
-  function scrollTracking(entries) {
-    for (const entry of entries) {
-      console.log(entry.target);
-      selector.setAttribute("value", entry.target.getAttribute('value'))
-      
-    }
-  }
-  const observer = new IntersectionObserver(scrollTracking, {
-    threshold: [1.0]
-  });
-
-  selector.querySelectorAll('.selector__element').forEach(element => observer.observe(element));
-}
 
 
-selectors.forEach(element => {
-  getSelectorValue(element)
-});
+
