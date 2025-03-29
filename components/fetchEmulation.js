@@ -3,7 +3,7 @@ import { settingsSwitch } from "../utils/constants.js";
 //  Fetch запрос на сервер (ЭМУЛЯЦИЯ)
 export function fetchEmulation() {
   if (!settingsSwitch.fetchemulationSwitchDelay.checked) {
-    return fetch("/onlinesales  март Наименования (6).html", { method: "GET" })
+    return fetch("../onlinesales  март Наименования (6).html", { method: "GET" })
       .then(response => response.text())
       .then(result => result)
       .catch(err => err);

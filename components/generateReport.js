@@ -49,7 +49,14 @@ export async function generateReport(form, reportName) {
         console.log(tableElement);
         
         localDB.forEach((e) => {
-          console.log(e);
+          let row = document.createElement('tr')
+          e.indicators.forEach((employee) => {
+            console.log(employee);
+            let td = document.createElement('td')
+            td.appendChild(document.createTextNode(employee.name))
+            row.appendChild(td)
+          })
+          tableElement.append(row)
         })
         break;
       case 'mouth':
