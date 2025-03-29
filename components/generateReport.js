@@ -21,8 +21,9 @@ import {
 } from "./progressBarUpdate.js";
 
 // функция генерации таблицы отчета
-export async function generateReport(form, reportName) {
-  let tableElement = document.createElement('table');
+export async function generateReport(form, reportName) {  
+  let tableElement = workspaces.report.querySelector('.table');
+  tableElement.innerHTML = ''
   tableElement.classList.add('table');
   headerProgressbar.classList.remove('progress-bar_hidden');
   switch (reportName) {
@@ -60,10 +61,12 @@ export async function generateReport(form, reportName) {
             td.appendChild(document.createTextNode(employee.total))
             */
             td = document.createElement('td')
-            td.innerHTML = employee.name
+            td.classList.add('text','table__cell')
+            td.textContent = employee.name
             row.appendChild(td)
             td = document.createElement('td')
-            td.innerHTML = employee.total
+            td.classList.add('text','table__cell')
+            td.textContent = employee.total
             row.appendChild(td)
             tableElement.append(row)
           })
