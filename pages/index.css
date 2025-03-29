@@ -76,19 +76,77 @@
 
 
 
+.sidebar_down {
+  margin-top: auto;
+}
+
+.workspace__center {
+  align-items: center;
+}
+
+.button_sidebar {
+  width: 100%;
+  min-width: max-content;
+}
+
+.button_sidebar_active {
+  left: -300px;
+  margin: 0 -90px 0 0;
+}
+
+.table__heading {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.table__text {
+  font-size: 14px;
+  font-weight: 300;
+  color: gray;
+}
+
+.table__cell {
+  font-size: 12px;
+  font-weight: 200;
+}
+/*
+.report-editor__week-picker {
+  padding: 0;
+  gap: 0;
+  width: 100%;
+}
+
+.report-editor__week-picker-arrow {
+  fill: #39383d;
+  height: 40px;
+}
+
+.report-editor__week-picker-input {
+  outline: 0;
+  border: 0;
+  background-color: #262628;
+  height: 50px;
+  width: 100px;
+  padding: 0;
+  margin: 0;
+  border-radius: 8px;
+  text-align: center;
+  color: white;
+  font-size: 20px;
+}*/
+
+.settings__container {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
+}
 /* //////////////// TEST ZONE //////////////// */
 .report-editor__week-picker {
   justify-content: space-evenly;
   gap: 0;
 }
-.report-editor__week-picker
+
 .report-editor__week-picker-arrow {
   height: 30px;
   fill: white;
 }
-
-
-
-
-
-
