@@ -1,6 +1,6 @@
 import {
   progressBarCurrentState,
-} from "./utils/constants.js"
+} from "../utils/constants.js"
 import {
   changeText,
 } from "../components/changeText.js"
