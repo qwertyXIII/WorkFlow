@@ -8,20 +8,20 @@ import {
   sidebar,
   headerButtons,
   progressBarCurrentState
-} from "../utils/constants.js"
+} from "./utils/constants.js"
 
 
 import {
   changeText
-} from "../components/changeText.js";
+} from "./components/changeText.js";
 
 import {
   dateByWeekNumber
-} from "../components/dateByWeekNumber.js";
+} from "./components/dateByWeekNumber.js";
 
 import {
   generateReport
-} from "../components/generateReport.js";
+} from "./components/generateReport.js";
 
 
 
