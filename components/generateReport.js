@@ -1,11 +1,15 @@
 import {
   headerProgressbar,
   localDB,
+  multiSwitch,
+  progressBarCurrentState,
+  selector,
   settingsSwitch
 } from "../utils/constants.js";
 import {
   communicator
 } from "./communicator.js";
+import { dateByWeekNumber } from "./dateByWeekNumber.js";
 import {
   arrayToNormilizeObj,
   convertStringToHTML,
@@ -16,32 +20,42 @@ import {
 } from "./progressBarUpdate.js";
 
 // функция генерации таблицы отчета
-export function generateReport(reportName, startDate, endDate, weekNumber) {
-  document.querySelector('.header__progress-bar').classList.remove('progress-bar_hidden');
+export async function generateReport(form, reportName) {
+  let tableElement = document.createElement('table');
+  tableElement.classList.add('table');
+  headerProgressbar.classList.remove('progress-bar_hidden');
   switch (reportName) {
-    case 'penitration':
-      if (!settingsSwitch.fetchemulationSwitchDelay.checked) {
-        communicator(reportName, startDate, endDate)
-          .then(data => {
-            localDB.push(arrayToNormilizeObj(toArrayOfHTML(convertStringToHTML(data).querySelector('.tableX')), weekNumber, startDate, endDate));
-            console.log(localDB);
-            progressBarUpdate(headerProgressbar, 'ok');
-          }).catch((err) => {
-            progressBarUpdate(headerProgressbar, 'error');
-            console.log(err);
-          });
-      } else { // ЭТО ДЛЯ ЭМУЛЯЦИИ ОЖИДАНИЯ ОБЕЩАНИЯ ЗАПРОСА
-        setTimeout(() => {
-          communicator(reportName, startDate, endDate)
-            .then(data => {
-              localDB.push(arrayToNormilizeObj(toArrayOfHTML(convertStringToHTML(data).querySelector('.tableX')), weekNumber, startDate, endDate));
-              console.log(localDB);
-              progressBarUpdate(headerProgressbar, 'ok');
-            }).catch((err) => {             
-              progressBarUpdate(headerProgressbar, 'error');
-            });
-        }, Math.floor(1000 + Math.random() * (30000 + 1 - 1000)));
-      }
+    case 'penitration': switch (multiSwitch.generateReportMultiswitch) {
+      case 'day':
+        //////////////////////////////////////////////////////////////
+        break;
+      case 'week':
+        progressBarCurrentState.max = selector.weekSelectorEnd.getAttribute('value') - selector.weekSelectorStart.getAttribute('value') + 1;
+        for (let i = selector.weekSelectorStart.getAttribute('value'); i - 1 < selector.weekSelectorEnd.getAttribute('value'); i++) {
+            await communicator(reportName, dateByWeekNumber(2025, i).startDate, dateByWeekNumber(2025, i).endDate)
+              .then(data => {
+                localDB.push(
+                  arrayToNormilizeObj(toArrayOfHTML(convertStringToHTML(data).querySelector('.tableX')), i, dateByWeekNumber(2025, i).startDate, dateByWeekNumber(2025, i).endDate)
+                )
+                progressBarUpdate(headerProgressbar, 'ok');
+              }).catch((err) => {
+                progressBarUpdate(headerProgressbar, 'error');
+                console.log(err);
+              });
+        }
+        localDB.sort((a, b) => {
+          return a.definition.week - b.definition.week;
+        })
+        console.log(tableElement);
+        
+        localDB.forEach((e) => {
+          console.log(e);
+        })
+        break;
+      case 'mouth':
+        //////////////////////////////////////////////////////////////
+        break;
+    }
       break;
     default:
       console.error('Неизвестное название отчёта');

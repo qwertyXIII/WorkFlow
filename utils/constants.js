@@ -28,6 +28,9 @@ export const selector = {
   weekSelectorStart: document.querySelector('.startweek'),
   weekSelectorEnd: document.querySelector('.endweek')
 }
+export const multiSwitch = {
+  generateReportMultiswitch: document.querySelector('input[type="radio"][name="report-editor-multi-switcher-time"]:checked').value
+}
 
 export const headerHeading = document.querySelector('.header__heading');
 

@@ -163,27 +163,7 @@ document.querySelector('#close-report-editor').addEventListener('click', () => {
 // Форма генерации отчета
 form.reporteditor.addEventListener('submit', (e) => {
   e.preventDefault();
-
-  switch (e.target.querySelector('input[type="radio"][name="report-editor-multi-switcher-time"]:checked').value) {
-    case 'day':
-      //////////////////////////////////////////////////////////////
-      break;
-    case 'week':
-      progressBarCurrentState.max = selector.weekSelectorEnd.getAttribute('value') - selector.weekSelectorStart.getAttribute('value') + 1;
-      //localDB = [];
-      for (let i = selector.weekSelectorStart.getAttribute('value'); i - 1 < selector.weekSelectorEnd.getAttribute('value'); i++) {
-        generateReport(
-          'penitration',
-          dateByWeekNumber(2025, i).startDate,
-          dateByWeekNumber(2025, i).endDate,
-          i
-        )
-      }
-      break;
-    case 'mouth':
-      //////////////////////////////////////////////////////////////
-      break;
-  }
+  generateReport(e, 'penitration')
 });
 
 // Заставляем селекторы работать
