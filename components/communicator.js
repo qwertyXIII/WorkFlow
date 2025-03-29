@@ -1,6 +1,6 @@
 import {
   settingsSwitch
-} from "./utils/constants.js";
+} from "../utils/constants.js";
 import {
   fetchEmulation
 } from "./fetchEmulation.js";

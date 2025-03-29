@@ -3,7 +3,7 @@ import {
 } from "./utils/constants.js"
 import {
   changeText,
-} from "./components/changeText.js"
+} from "../components/changeText.js"
 
 // Функция обновления статус бара, вызывается в промисе, нужно установить значение progressBarCurrentState.max
 export function progressBarUpdate(progressBarElement, status, data) {
