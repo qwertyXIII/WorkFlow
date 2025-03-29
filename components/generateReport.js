@@ -1,7 +1,7 @@
 import { headerProgressbar, localDB, settingsSwitch } from "../utils/constants.js";
-import { communicator } from "./communicator.js";
-import { arrayToNormilizeObj, convertStringToHTML, toArrayOfHTML } from "./parser.js";
-import { progressBarUpdate } from "./progressBarUpdate.js";
+import { communicator } from "../communicator.js";
+import { arrayToNormilizeObj, convertStringToHTML, toArrayOfHTML } from "../parser.js";
+import { progressBarUpdate } from "../progressBarUpdate.js";
 
 // функция генерации таблицы отчета
 export function generateReport(reportName, startDate, endDate, weekNumber) {

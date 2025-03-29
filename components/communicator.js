@@ -3,7 +3,7 @@ import {
 } from "../utils/constants.js";
 import {
   fetchEmulation
-} from "./fetchEmulation.js";
+} from "../fetchEmulation.js";
 
 // Функция взаимодействия с FOBO-MON
 export function communicator(reportName, startDate, endDate) {
