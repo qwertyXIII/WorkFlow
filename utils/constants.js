@@ -12,7 +12,8 @@ export const controlButton  = {
 
 export const workspaces = {
   all: document.querySelectorAll('.workspace'),
-  homeScreen: document.querySelector('#home-screen')
+  homeScreen: document.querySelector('#home-screen'),
+  report: document.querySelector('#report')
 }
 
 export const popup = {

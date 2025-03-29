@@ -4,7 +4,8 @@ import {
   multiSwitch,
   progressBarCurrentState,
   selector,
-  settingsSwitch
+  settingsSwitch,
+  workspaces
 } from "../utils/constants.js";
 import {
   communicator
@@ -49,15 +50,25 @@ export async function generateReport(form, reportName) {
         console.log(tableElement);
         
         localDB.forEach((e) => {
-          let row = document.createElement('tr')
           e.indicators.forEach((employee) => {
             console.log(employee);
+            let row = document.createElement('tr')
+            let td;
+            /*
             let td = document.createElement('td')
             td.appendChild(document.createTextNode(employee.name))
+            td.appendChild(document.createTextNode(employee.total))
+            */
+            td = document.createElement('td')
+            td.innerHTML = employee.name
             row.appendChild(td)
+            td = document.createElement('td')
+            td.innerHTML = employee.total
+            row.appendChild(td)
+            tableElement.append(row)
           })
-          tableElement.append(row)
         })
+        workspaces.report.appendChild(tableElement)
         break;
       case 'mouth':
         //////////////////////////////////////////////////////////////
