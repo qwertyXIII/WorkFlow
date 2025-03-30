@@ -20,25 +20,33 @@ export const popup = {
   about: document.querySelector('#about-popup'),
   settings: document.querySelector('#settings-popup')
 }
-export const form = {
-  reporteditor: document.querySelector('#report-editor-form')
+export const forms = {
+  reporteditor: {
+    form: document.querySelector('#report-editor-form'),
+    accessoriesSwitch: document.querySelector('#report-editor-switch-accessories'),
+    servicesSwitch: document.querySelector('#report-editor-switch-services'),
+    armorjackSwitch: document.querySelector('#report-editor-switch-armorjack'),
+    installationsSwitch: document.querySelector('#report-editor-switch-installations'),
+    insuranceSwitch: document.querySelector('#report-editor-switch-insurance'),
+    weekSelectorStart: document.querySelector('.startweek'),
+    weekSelectorEnd: document.querySelector('.endweek')
+  }
 }
 
-export const selector = {
-  all: document.querySelectorAll('.selector'),
-  weekSelectorStart: document.querySelector('.startweek'),
-  weekSelectorEnd: document.querySelector('.endweek')
-}
+export const selectors = document.querySelectorAll('.selector');
+
 export const multiSwitch = {
   generateReportMultiswitch: document.querySelector('input[type="radio"][name="report-editor-multi-switcher-time"]:checked').value
 }
 
 export const headerHeading = document.querySelector('.header__heading');
+export const tableName = document.querySelector('.table__name')
 
 export const tabsButtons = document.querySelectorAll('.button__tab');
 
 export const sidebar = document.querySelector('.sidebar');
 export const headerProgressbar = document.querySelector('.header__progress-bar');
+
 
 
 export const headerButtons = {
@@ -51,4 +59,8 @@ export let progressBarCurrentState = {
   current: 0
 }
 
-export let localDB = [];
+export let localDB = {
+  array: []
+};
+
+export let localLog = [];

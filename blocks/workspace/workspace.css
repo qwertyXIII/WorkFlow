@@ -1,13 +1,13 @@
 .workspace {
   position: relative;
   grid-area: workspace;
-  overflow-x: scroll;
+  overflow: scroll;
   display: flex;
   flex-direction: column;
   justify-content: center;
   height: 100vh;
   width: 100%;
-  padding: 10px;
+  padding: 50px 10px 10px 10px;
   box-sizing: border-box;
   visibility: hidden;
   margin: -50px 0 0 0;

@@ -2,13 +2,12 @@ import {
   controlButton,
   workspaces,
   popup,
-  form,
+  forms,
   headerHeading,
   tabsButtons,
   sidebar,
   headerButtons,
-  progressBarCurrentState,
-  selector,
+  selectors,
   localDB
 } from "./utils/constants.js"
 
@@ -155,19 +154,27 @@ popup.settings.addEventListener('click', (e) => {
 // Параметры выгрузки отчета
 document.querySelector('#report-editor-activator').addEventListener('click', () => {
   document.querySelector('#report-editor').classList.toggle('report-editor_active');
+  function listener(e) {
+    if (e.code == "Escape") {
+      document.querySelector('#report-editor').classList.remove('report-editor_active');
+      document.removeEventListener('keydown', listener);
+    }
+  }
+  document.addEventListener('keydown', listener);
 });
 document.querySelector('#close-report-editor').addEventListener('click', () => {
   document.querySelector('#report-editor').classList.remove('report-editor_active');
 });
 
 // Форма генерации отчета
-form.reporteditor.addEventListener('submit', (e) => {
+forms.reporteditor.form.addEventListener('submit', (e) => {
   e.preventDefault();
+  localDB.array = [];
   generateReport(e, 'penitration')
 });
 
 // Заставляем селекторы работать
-selector.all.forEach(element => {
+selectors.forEach(element => {
   selectorObserver(element)
 });
 

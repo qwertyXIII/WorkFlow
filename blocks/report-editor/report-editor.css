@@ -1,8 +1,8 @@
 .report-editor {
   background-color: #1c1c1e;
   outline: 1px solid #323237;
-  position: absolute;
-  top: 40px;
+  position: fixed;
+  top: 50px;
   right: 10px;
   box-shadow: -5px 30px 40px 5px rgba(0, 0, 0, 0.5);
   border-radius: 13px;
