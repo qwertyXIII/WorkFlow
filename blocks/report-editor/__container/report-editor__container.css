@@ -7,4 +7,5 @@
   box-sizing: border-box;
   margin: 5px 0;
   gap: 50px;
+  transition: .5s;
 }

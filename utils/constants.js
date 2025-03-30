@@ -28,6 +28,9 @@ export const forms = {
     armorjackSwitch: document.querySelector('#report-editor-switch-armorjack'),
     installationsSwitch: document.querySelector('#report-editor-switch-installations'),
     insuranceSwitch: document.querySelector('#report-editor-switch-insurance'),
+    weekSelector: document.querySelector('.report-editor__week-picker'),
+    daySelector: document.querySelector('.report-editor__day-picker'),
+    mouthSelector: document.querySelector('.report-editor__mouth-picker'),
     weekSelectorStart: document.querySelector('.startweek'),
     weekSelectorEnd: document.querySelector('.endweek')
   }
@@ -36,8 +39,15 @@ export const forms = {
 export const selectors = document.querySelectorAll('.selector');
 
 export const multiSwitch = {
-  generateReportMultiswitch: document.querySelector('input[type="radio"][name="report-editor-multi-switcher-time"]:checked').value
+  generateReportMultiswitch: {
+    element: document.querySelector('#report-editor-multi-switcher-interval'),
+    inputs: document.querySelectorAll('#report-editor-multi-switcher-interval .multi-switcher__radio')
+  }
 }
+
+
+
+
 
 export const headerHeading = document.querySelector('.header__heading');
 export const tableName = document.querySelector('.table__name')

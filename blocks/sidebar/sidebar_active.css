@@ -3,3 +3,17 @@
   padding: 40px 10px 10px 10px;
   border-right: black 1px solid;
 }
+
+
+@media screen and (max-width: 800px){
+  .sidebar_active {
+       margin: 0 -300px 0 0;
+    }
+}
+
+@media screen and (max-width: 480px){
+  .sidebar_active {
+       margin: 0 -100vw 0 0;
+       width: 100vw;
+    }
+}

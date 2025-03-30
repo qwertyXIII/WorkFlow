@@ -55,6 +55,8 @@
 @import url(../blocks/report-editor/__container/report-editor__container.css);
 @import url(../blocks/report-editor/__button/report-editor__button.css);
 @import url(../blocks/report-editor/__text/report-editor__text.css);
+@import url(../blocks/report-editor/__text/report-editor__selectors.css);
+@import url(../blocks/report-editor/__text/report-editor__selectors_hidden.css);
 /* MULTI SWITCHER */
 @import url(../blocks/multi-switcher/multi-switcher.css);
 @import url(../blocks/multi-switcher/multi-switcher_x3.css);
@@ -69,6 +71,13 @@
 /* SELECTOR */
 @import url(../blocks/selector/selector.css);
 @import url(../blocks/selector/__element/selector__element.css);
+/* TABLE */
+@import url(../blocks/table/table.css); /**/
+@import url(../blocks/table/__heading/table__heading.css);
+@import url(../blocks/table/__element/table__element.css);
+@import url(../blocks/table/__name/table__name.css);
+@import url(../blocks/table/__text/table__text.css);
+@import url(../blocks/table/__cell/table__cell.css);
 
 
 
@@ -90,25 +99,28 @@
 }
 
 .button_sidebar_active {
+  position: relative;
   left: -300px;
   margin: 0 -90px 0 0;
 }
-
-.table__heading {
-  font-size: 15px;
-  font-weight: 500;
+@media screen and (max-width: 800px){
+  .button_sidebar_active {
+       left: -0;
+       margin: 0 -0 0 0;
+    }
 }
 
-.table__text {
-  font-size: 14px;
-  font-weight: 300;
-  color: gray;
+@media screen and (max-width: 480px){
+  .button_sidebar_active {
+    left: -0;
+    margin: 0 -0 0 0;
+    }
 }
 
-.table__cell {
-  font-size: 12px;
-  font-weight: 200;
-}
+
+
+
+
 /*
 .report-editor__week-picker {
   padding: 0;
@@ -141,12 +153,8 @@
   margin: 5px 0;
 }
 /* //////////////// TEST ZONE //////////////// */
-.report-editor__week-picker {
-  justify-content: space-evenly;
-  gap: 0;
-}
 
 .report-editor__week-picker-arrow {
-  height: 30px;
+  height: 15px;
   fill: white;
 }

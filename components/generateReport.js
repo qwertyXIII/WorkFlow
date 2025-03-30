@@ -29,7 +29,7 @@ function round(value, num) {
 function addCell(cssSelector, text, tlte, rowspan, colspan) {
   let td;
   td = document.createElement('td');
-  td.classList.add('text', cssSelector);
+  td.classList.add('table__element', cssSelector);
   if (tlte !== '') {
     td.setAttribute('title', tlte)
   }
@@ -53,7 +53,7 @@ export async function generateReport(form, reportName) {
   headerProgressbar.classList.remove('progress-bar_hidden');
   switch (reportName) {
     case 'penitration':
-      switch (multiSwitch.generateReportMultiswitch) {
+      switch (Array.from(multiSwitch.generateReportMultiswitch.inputs).find(r => r.checked)?.value) {
         case 'day':
           //////////////////////////////////////////////////////////////
           break;
@@ -127,10 +127,7 @@ export async function generateReport(form, reportName) {
           localDB.array.sort((a, b) => {
             return a.definition.week - b.definition.week;
           })
-
-
-
-
+          console.log(localDB);
 
 
 

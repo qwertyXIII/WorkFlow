@@ -8,7 +8,8 @@ import {
   sidebar,
   headerButtons,
   selectors,
-  localDB
+  localDB,
+  multiSwitch
 } from "./utils/constants.js"
 
 
@@ -30,16 +31,16 @@ import { selectorObserver } from "./components/selectorObserver.js";
 /* /////////////////////////////////////// */
 /* Новый метод Date для определения текущего номера недели  */
 Date.prototype.getWeek = function () {
-  var date = new Date(this.getTime());
+  let date = new Date(this.getTime());
   date.setHours(0, 0, 0, 0);
   date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
-  var week1 = new Date(date.getFullYear(), 0, 4);
+  let week1 = new Date(date.getFullYear(), 0, 4);
   return 1 + Math.round(((
     date.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7
   );
 }
 Date.prototype.getWeekYear = function () {
-  var date = new Date(this.getTime());
+  let date = new Date(this.getTime());
   date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
   return date.getFullYear();
 }
@@ -169,6 +170,9 @@ document.querySelector('#close-report-editor').addEventListener('click', () => {
 // Форма генерации отчета
 forms.reporteditor.form.addEventListener('submit', (e) => {
   e.preventDefault();
+
+
+
   localDB.array = [];
   generateReport(e, 'penitration')
 });
@@ -177,6 +181,16 @@ forms.reporteditor.form.addEventListener('submit', (e) => {
 selectors.forEach(element => {
   selectorObserver(element)
 });
+
+
+// Выставляем селекторы в удобные для пользователя позиции
+const date = new Date;
+forms.reporteditor.weekSelectorStart.querySelector(`#start-week-selector-${date.getWeek()}`).scrollIntoView()
+forms.reporteditor.weekSelectorEnd.querySelector(`#end-week-selector-${date.getWeek()}`).scrollIntoView()
+
+
+
+
 
 window.onload = () => {
   setTimeout(() => {
@@ -189,7 +203,28 @@ window.onload = () => {
 
 /* //////////////// TEST ZONE //////////////// */
 
+multiSwitch.generateReportMultiswitch.element.addEventListener('click', () => {
+
+  forms.reporteditor.form.querySelectorAll('.report-editor__selectors').forEach((e) => {
+    e.classList.add('report-editor__selectors_hidden')
+  })
+  switch (Array.from(multiSwitch.generateReportMultiswitch.inputs).find(r => r.checked)?.value) {
+    case 'day':
+      forms.reporteditor.daySelector.classList.remove('report-editor__selectors_hidden')
+
+      break;
+    case 'week':
+
+      forms.reporteditor.weekSelector.classList.remove('report-editor__selectors_hidden')
+
+      break;
+    case 'mouth':
+      forms.reporteditor.mouthSelector.classList.remove('report-editor__selectors_hidden')
+
+      break;
+  }
+})
 
 
-
+document.querySelector(`.startYor .y${date.getFullYear()}`).scrollIntoView()
 

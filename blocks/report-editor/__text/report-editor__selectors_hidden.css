@@ -1,0 +1,7 @@
+.report-editor__selectors_hidden {
+  height: 0;
+  margin: 0;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+}
