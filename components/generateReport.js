@@ -155,29 +155,27 @@ export async function generateReport(form, reportName) {
 
             if (forms.reporteditor.accessoriesSwitch.checked) {
               for (let i = forms.reporteditor.weekSelectorStart.getAttribute('value'); i - 1 < forms.reporteditor.weekSelectorEnd.getAttribute('value'); i++) {
-                console.log(e.match(/\d+/g));
-
-                row.appendChild(addCell('table__cell', '', '', '', '', [`accessories${e.match(/\d+/g)}w${i}`]));
+                row.appendChild(addCell('table__cell', '[---]', '', '', '', [`accessories${e.match(/\d+/g)}w${i}`]));
               }
             }
             if (forms.reporteditor.servicesSwitch.checked) {
               for (let i = forms.reporteditor.weekSelectorStart.getAttribute('value'); i - 1 < forms.reporteditor.weekSelectorEnd.getAttribute('value'); i++) {
-                row.appendChild(addCell('table__cell', '', '', '', '', [`services${e.match(/\d+/g)}w${i}`]));
+                row.appendChild(addCell('table__cell', '[---]', '', '', '', [`services${e.match(/\d+/g)}w${i}`]));
               }
             }
             if (forms.reporteditor.insuranceSwitch.checked) {
               for (let i = forms.reporteditor.weekSelectorStart.getAttribute('value'); i - 1 < forms.reporteditor.weekSelectorEnd.getAttribute('value'); i++) {
-                row.appendChild(addCell('table__cell', '', '', '', '', [`insurance${e.match(/\d+/g)}w${i}`]));
+                row.appendChild(addCell('table__cell', '[---]', '', '', '', [`insurance${e.match(/\d+/g)}w${i}`]));
               }
             }
             if (forms.reporteditor.armorjackSwitch.checked) {
               for (let i = forms.reporteditor.weekSelectorStart.getAttribute('value'); i - 1 < forms.reporteditor.weekSelectorEnd.getAttribute('value'); i++) {
-                row.appendChild(addCell('table__cell', '', '', '', '', [`armorjack${e.match(/\d+/g)}w${i}`]));
+                row.appendChild(addCell('table__cell', '[---]', '', '', '', [`armorjack${e.match(/\d+/g)}w${i}`]));
               }
             }
             if (forms.reporteditor.installationsSwitch.checked) {
               for (let i = forms.reporteditor.weekSelectorStart.getAttribute('value'); i - 1 < forms.reporteditor.weekSelectorEnd.getAttribute('value'); i++) {
-                row.appendChild(addCell('table__cell', '', '', '', '', [`installations${e.match(/\d+/g)}w${i}`]));
+                row.appendChild(addCell('table__cell', '[---]', '', '', '', [`installations${e.match(/\d+/g)}w${i}`]));
               }
             }
             tableElement.append(row);
@@ -190,12 +188,15 @@ export async function generateReport(form, reportName) {
                 arrEl.indicators.forEach((employee) => {
                   if (employee.name === eName) {
                     let cell = tableElement.querySelector(`.accessories${eName.match(/\d+/g)}w${arrEl.definition.week}`)
+                    const value = round(employee.products.accessories.sum / employee.total * 100, 2)
                     //cell.innerHTML = round(employee.products.accessories.sum / employee.total * 100, 2) + '%'
                     cell.setAttribute('title', `[Аксессуары] W${arrEl.definition.week} Сумма: ${employee.products.accessories.sum}, Количество: ${employee.products.accessories.quantity}, оборот: ${employee.total}`)
                   
-                    setTimeout(() => { 
-                      changeText(cell, round(employee.products.accessories.sum / employee.total * 100, 2) + '%')
-                     }, Math.floor(100 + Math.random() * (1000 + 1 - 100)))
+                    if (!isNaN(value)) {
+                      setTimeout(() => { 
+                        changeText(cell, value + '%')
+                       }, Math.floor(100 + Math.random() * (1000 + 1 - 100)))
+                    }
                   }
                 })
               })
@@ -205,12 +206,15 @@ export async function generateReport(form, reportName) {
                 arrEl.indicators.forEach((employee) => {
                   if (employee.name === eName) {
                     let cell = tableElement.querySelector(`.services${eName.match(/\d+/g)}w${arrEl.definition.week}`)
+                    const value = round(employee.products.services.sum / employee.total * 100, 2)
                     //cell.innerHTML = round(employee.products.services.sum / employee.total * 100, 2) + '%'
                     cell.setAttribute('title', `[Услуги] W${arrEl.definition.week} Сумма: ${employee.products.services.sum}, Количество: ${employee.products.services.quantity}, оборот: ${employee.total}`)
                   
-                    setTimeout(() => { 
-                      changeText(cell, round(employee.products.services.sum / employee.total * 100, 2) + '%')
-                     }, Math.floor(100 + Math.random() * (1000 + 1 - 100)))
+                    if (!isNaN(value)) {
+                      setTimeout(() => { 
+                        changeText(cell, value + '%')
+                       }, Math.floor(100 + Math.random() * (1000 + 1 - 100)))
+                    }
                   }
                 })
               })
@@ -220,12 +224,15 @@ export async function generateReport(form, reportName) {
                 arrEl.indicators.forEach((employee) => {
                   if (employee.name === eName) {
                     let cell = tableElement.querySelector(`.insurance${eName.match(/\d+/g)}w${arrEl.definition.week}`)
+                    const value = round(employee.products.insurance.sum / employee.total * 100, 2)
                     //cell.innerHTML = round(employee.products.insurance.sum / employee.total * 100, 2) + '%'
                     cell.setAttribute('title', `[БС] W${arrEl.definition.week} Сумма: ${employee.products.insurance.sum}, Количество: ${employee.products.insurance.quantity}, оборот: ${employee.total}`)
-                  
-                    setTimeout(() => { 
-                      changeText(cell, round(employee.products.insurance.sum / employee.total * 100, 2) + '%')
-                     }, Math.floor(100 + Math.random() * (1000 + 1 - 100)))
+                    
+                    if (!isNaN(value)) {
+                      setTimeout(() => { 
+                        changeText(cell, value + '%')
+                       }, Math.floor(100 + Math.random() * (1000 + 1 - 100)))
+                    }
                   }
                 })
               })
@@ -235,12 +242,15 @@ export async function generateReport(form, reportName) {
                 arrEl.indicators.forEach((employee) => {
                   if (employee.name === eName) {
                     let cell = tableElement.querySelector(`.armorjack${eName.match(/\d+/g)}w${arrEl.definition.week}`)
+                    const value = round(employee.products.services.armorjack.quantity / employee.products.main.mobile.quantity * 100, 2)
                     //cell.innerHTML = round(employee.products.services.armorjack.quantity / employee.products.main.mobile.quantity * 100, 2) + '%'
                     cell.setAttribute('title', `[AJ] W${arrEl.definition.week} Количество AJ: ${employee.products.services.armorjack.quantity}шт, Количество  Mobile: ${employee.products.main.mobile.quantity}шт`)
                   
-                    setTimeout(() => { 
-                      changeText(cell, round(employee.products.services.armorjack.quantity / employee.products.main.mobile.quantity * 100, 2) + '%')
-                     }, Math.floor(100 + Math.random() * (1000 + 1 - 100)))
+                    if (!isNaN(value)) {
+                      setTimeout(() => { 
+                        changeText(cell, value + '%')
+                       }, Math.floor(100 + Math.random() * (1000 + 1 - 100)))
+                    }
                   }
                 })
               })
@@ -250,12 +260,15 @@ export async function generateReport(form, reportName) {
                 arrEl.indicators.forEach((employee) => {
                   if (employee.name === eName) {
                     let cell = tableElement.querySelector(`.installations${eName.match(/\d+/g)}w${arrEl.definition.week}`)
+                    const value = round(employee.products.services.installations.sum / employee.total * 100, 2)
                     //cell.innerHTML = round(employee.products.services.installations.sum / employee.total * 100, 2) + '%'
                     cell.setAttribute('title', `[Установки] W${arrEl.definition.week} Сумма: ${employee.products.services.installations.sum}, Количество: ${employee.products.services.installations.quantity}, оборот: ${employee.total}`)
                   
-                    setTimeout(() => { 
-                      changeText(cell, round(employee.products.services.installations.sum / employee.total * 100, 2) + '%')
-                     }, Math.floor(100 + Math.random() * (1000 + 1 - 100)))
+                    if (!isNaN(value)) {
+                      setTimeout(() => { 
+                        changeText(cell, value + '%')
+                       }, Math.floor(100 + Math.random() * (1000 + 1 - 100))) 
+                    }
                   }
                 })
               })
