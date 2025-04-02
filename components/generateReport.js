@@ -76,6 +76,7 @@ export async function generateReport(form, reportName) {
                 localDB.array.push(
                   arrayToNormilizeObj(toArrayOfHTML(convertStringToHTML(data).querySelector('.tableX')), i, dateByWeekNumber(2025, i).startDate, dateByWeekNumber(2025, i).endDate)
                 )
+                changeText(tableName, `Отчёт с W${forms.reporteditor.weekSelectorStart.getAttribute('value')} по W${forms.reporteditor.weekSelectorEnd.getAttribute('value')}`)
                 progressBarUpdate(headerProgressbar, 'ok');
               }).catch((err) => {
                 progressBarUpdate(headerProgressbar, 'error');
@@ -190,7 +191,7 @@ export async function generateReport(form, reportName) {
                   if (employee.name === eName) {
                     let cell = tableElement.querySelector(`.accessories${eName.match(/\d+/g)}w${arrEl.definition.week}`)
                     //cell.innerHTML = round(employee.products.accessories.sum / employee.total * 100, 2) + '%'
-                    cell.setAttribute('title', `[Аксессуары] W${arrEl.definition.week} Сумма: ${employee.products.accessories.sum}, Количество: ${employee.products.accessories.quantity}`)
+                    cell.setAttribute('title', `[Аксессуары] W${arrEl.definition.week} Сумма: ${employee.products.accessories.sum}, Количество: ${employee.products.accessories.quantity}, оборот: ${employee.total}`)
                   
                     setTimeout(() => { 
                       changeText(cell, round(employee.products.accessories.sum / employee.total * 100, 2) + '%')
@@ -205,7 +206,7 @@ export async function generateReport(form, reportName) {
                   if (employee.name === eName) {
                     let cell = tableElement.querySelector(`.services${eName.match(/\d+/g)}w${arrEl.definition.week}`)
                     //cell.innerHTML = round(employee.products.services.sum / employee.total * 100, 2) + '%'
-                    cell.setAttribute('title', `[Услуги] W${arrEl.definition.week} Сумма: ${employee.products.services.sum}, Количество: ${employee.products.services.quantity}`)
+                    cell.setAttribute('title', `[Услуги] W${arrEl.definition.week} Сумма: ${employee.products.services.sum}, Количество: ${employee.products.services.quantity}, оборот: ${employee.total}`)
                   
                     setTimeout(() => { 
                       changeText(cell, round(employee.products.services.sum / employee.total * 100, 2) + '%')
@@ -220,7 +221,7 @@ export async function generateReport(form, reportName) {
                   if (employee.name === eName) {
                     let cell = tableElement.querySelector(`.insurance${eName.match(/\d+/g)}w${arrEl.definition.week}`)
                     //cell.innerHTML = round(employee.products.insurance.sum / employee.total * 100, 2) + '%'
-                    cell.setAttribute('title', `[БС] W${arrEl.definition.week} Сумма: ${employee.products.insurance.sum}, Количество: ${employee.products.insurance.quantity}`)
+                    cell.setAttribute('title', `[БС] W${arrEl.definition.week} Сумма: ${employee.products.insurance.sum}, Количество: ${employee.products.insurance.quantity}, оборот: ${employee.total}`)
                   
                     setTimeout(() => { 
                       changeText(cell, round(employee.products.insurance.sum / employee.total * 100, 2) + '%')
@@ -250,7 +251,7 @@ export async function generateReport(form, reportName) {
                   if (employee.name === eName) {
                     let cell = tableElement.querySelector(`.installations${eName.match(/\d+/g)}w${arrEl.definition.week}`)
                     //cell.innerHTML = round(employee.products.services.installations.sum / employee.total * 100, 2) + '%'
-                    cell.setAttribute('title', `[Установки] W${arrEl.definition.week} Сумма: ${employee.products.services.installations.sum}, Количество: ${employee.products.services.installations.quantity}`)
+                    cell.setAttribute('title', `[Установки] W${arrEl.definition.week} Сумма: ${employee.products.services.installations.sum}, Количество: ${employee.products.services.installations.quantity}, оборот: ${employee.total}`)
                   
                     setTimeout(() => { 
                       changeText(cell, round(employee.products.services.installations.sum / employee.total * 100, 2) + '%')
@@ -260,7 +261,6 @@ export async function generateReport(form, reportName) {
               })
             }
           })
-          changeText(tableName, `Выгрузка отёта с W${forms.reporteditor.weekSelectorStart.getAttribute('value')} по W${forms.reporteditor.weekSelectorEnd.getAttribute('value')}`)
           break;
         case 'mouth':
           //////////////////////////////////////////////////////////////
