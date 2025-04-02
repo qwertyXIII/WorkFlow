@@ -8,7 +8,9 @@ import {
   workspaces,
   forms
 } from "../utils/constants.js";
-import { changeText } from "./changeText.js";
+import {
+  changeText
+} from "./changeText.js";
 import {
   communicator
 } from "./communicator.js";
@@ -27,7 +29,7 @@ function round(value, num) {
   return +value.toFixed(num);
 }
 
-function addCell(cssClass, text, tlte, rowspan, colspan) {
+function addCell(cssClass, text, tlte, rowspan, colspan, additionalClasses) {
   let td;
   td = document.createElement('td');
   td.classList.add('table__element', cssClass);
@@ -39,6 +41,11 @@ function addCell(cssClass, text, tlte, rowspan, colspan) {
   }
   if (colspan !== '') {
     td.setAttribute('colspan', colspan)
+  }
+  if (additionalClasses !== '' & additionalClasses !== undefined) {
+    additionalClasses.forEach((e) => {
+      td.classList.add(e)
+    })
   }
   td.innerHTML = text;
   return td;
@@ -127,7 +134,6 @@ export async function generateReport(form, reportName) {
           }
           tableElement.append(row);
 
-
           let unique = [];
           localDB.array.forEach((e) => {
             e.indicators.forEach((employee) => {
@@ -137,18 +143,77 @@ export async function generateReport(form, reportName) {
 
           unique = countUniqueArray(unique, 'name')
 
-          unique.forEach((eName) => {
+
+
+
+
+
+
+
+
+
+
+
+            // ТУут создается структура таблицы, добавляются все ячейки и присваивается класс - "индитификатор"
+          unique.forEach((e) => {
             row = document.createElement('tr');
-            row.appendChild(addCell('table__cell', eName));
+            row.appendChild(addCell('table__cell', e, '', '', ''));
+
+            if (forms.reporteditor.accessoriesSwitch.checked) {
+              for (let i = forms.reporteditor.weekSelectorStart.getAttribute('value'); i - 1 < forms.reporteditor.weekSelectorEnd.getAttribute('value'); i++) {
+                console.log(e.match(/\d+/g));
+                
+                row.appendChild(addCell('table__cell', '', '', '', '', [`accessories${e.match(/\d+/g)}w${i}`]));
+              }
+            }
+            if (forms.reporteditor.servicesSwitch.checked) {
+              for (let i = forms.reporteditor.weekSelectorStart.getAttribute('value'); i - 1 < forms.reporteditor.weekSelectorEnd.getAttribute('value'); i++) {
+                row.appendChild(addCell('table__cell', '', '', '', '', [`services${e.match(/\d+/g)}w${i}`]));
+              }
+            }
+            if (forms.reporteditor.insuranceSwitch.checked) {
+              for (let i = forms.reporteditor.weekSelectorStart.getAttribute('value'); i - 1 < forms.reporteditor.weekSelectorEnd.getAttribute('value'); i++) {
+                row.appendChild(addCell('table__cell', '', '', '', '', [`insurance${e.match(/\d+/g)}w${i}`]));
+              }
+            }
+            if (forms.reporteditor.armorjackSwitch.checked) {
+              for (let i = forms.reporteditor.weekSelectorStart.getAttribute('value'); i - 1 < forms.reporteditor.weekSelectorEnd.getAttribute('value'); i++) {
+                row.appendChild(addCell('table__cell', '', '', '', '', [`armorjack${e.match(/\d+/g)}w${i}`]));
+              }
+            }
+            if (forms.reporteditor.installationsSwitch.checked) {
+              for (let i = forms.reporteditor.weekSelectorStart.getAttribute('value'); i - 1 < forms.reporteditor.weekSelectorEnd.getAttribute('value'); i++) {
+                row.appendChild(addCell('table__cell', '', '', '', '', [`installations${e.match(/\d+/g)}w${i}`]));
+              }
+            }
+            tableElement.append(row);
+          })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          //Вставляем значения в ячейки 
+          unique.forEach((eName) => {
             if (forms.reporteditor.accessoriesSwitch.checked) {
               localDB.array.forEach((arrEl) => {
+                console.log(arrEl);
+                
                 arrEl.indicators.forEach((employee) => {
                   if (employee.name === eName) {
-                    row.appendChild(addCell(
-                      'table__cell',
-                      round(employee.products.accessories.sum / employee.total * 100, 2) + '%',
-                      `[Аксессуары] W${arrEl.definition.week} Сумма: ${employee.products.accessories.sum}, Количество: ${employee.products.accessories.quantity}`
-                    ));
+                    let cell = tableElement.querySelector(`.accessories${eName.match(/\d+/g)}w${arrEl.definition.week}`)
+                    cell.innerHTML = round(employee.products.accessories.sum / employee.total * 100, 2) + '%'
+                    cell.setAttribute('title', `[Аксессуары] W${arrEl.definition.week} Сумма: ${employee.products.accessories.sum}, Количество: ${employee.products.accessories.quantity}`)
                   }
                 })
               })
@@ -157,11 +222,9 @@ export async function generateReport(form, reportName) {
               localDB.array.forEach((arrEl) => {
                 arrEl.indicators.forEach((employee) => {
                   if (employee.name === eName) {
-                    row.appendChild(addCell(
-                      'table__cell',
-                      round(employee.products.services.sum / employee.total * 100, 2) + '%',
-                      `[Услуги] W${arrEl.definition.week} Сумма: ${employee.products.services.sum}, Количество: ${employee.products.services.quantity}`
-                    ));
+                    let cell = tableElement.querySelector(`.services${eName.match(/\d+/g)}w${arrEl.definition.week}`)
+                    cell.innerHTML = round(employee.products.services.sum / employee.total * 100, 2) + '%'
+                    cell.setAttribute('title', `[Услуги] W${arrEl.definition.week} Сумма: ${employee.products.services.sum}, Количество: ${employee.products.services.quantity}`)
                   }
                 })
               })
@@ -170,11 +233,9 @@ export async function generateReport(form, reportName) {
               localDB.array.forEach((arrEl) => {
                 arrEl.indicators.forEach((employee) => {
                   if (employee.name === eName) {
-                    row.appendChild(addCell(
-                      'table__cell',
-                      round(employee.products.insurance.sum / employee.total * 100, 2) + '%',
-                      `[БС] W${arrEl.definition.week} Сумма: ${employee.products.insurance.sum}, Количество: ${employee.products.insurance.quantity}`
-                    ));
+                    let cell = tableElement.querySelector(`.insurance${eName.match(/\d+/g)}w${arrEl.definition.week}`)
+                    cell.innerHTML = round(employee.products.insurance.sum / employee.total * 100, 2) + '%'
+                    cell.setAttribute('title', `[БС] W${arrEl.definition.week} Сумма: ${employee.products.insurance.sum}, Количество: ${employee.products.insurance.quantity}`)
                   }
                 })
               })
@@ -183,11 +244,9 @@ export async function generateReport(form, reportName) {
               localDB.array.forEach((arrEl) => {
                 arrEl.indicators.forEach((employee) => {
                   if (employee.name === eName) {
-                    row.appendChild(addCell(
-                      'table__cell',
-                      round(employee.products.services.armorjack.quantity / employee.products.main.mobile.quantity * 100, 2) + '%',
-                      `[AJ] W${arrEl.definition.week} Количество AJ: ${employee.products.services.armorjack.quantity}шт, Количество  Mobile: ${employee.products.main.mobile.quantity}шт`
-                    ));
+                    let cell = tableElement.querySelector(`.armorjack${eName.match(/\d+/g)}w${arrEl.definition.week}`)
+                    cell.innerHTML = round(employee.products.services.armorjack.quantity / employee.products.main.mobile.quantity * 100, 2) + '%'
+                    cell.setAttribute('title', `[AJ] W${arrEl.definition.week} Количество AJ: ${employee.products.services.armorjack.quantity}шт, Количество  Mobile: ${employee.products.main.mobile.quantity}шт`)
                   }
                 })
               })
@@ -196,16 +255,13 @@ export async function generateReport(form, reportName) {
               localDB.array.forEach((arrEl) => {
                 arrEl.indicators.forEach((employee) => {
                   if (employee.name === eName) {
-                    row.appendChild(addCell(
-                      'table__cell',
-                      round(employee.products.services.installations.sum / employee.total * 100, 2) + '%',
-                      `[Установки] W${arrEl.definition.week} Сумма: ${employee.products.services.installations.sum}, Количество: ${employee.products.services.installations.quantity}`
-                    ));
+                    let cell = tableElement.querySelector(`.installations${eName.match(/\d+/g)}w${arrEl.definition.week}`)
+                    cell.innerHTML = round(employee.products.services.installations.sum / employee.total * 100, 2) + '%'
+                    cell.setAttribute('title', `[Установки] W${arrEl.definition.week} Сумма: ${employee.products.services.installations.sum}, Количество: ${employee.products.services.installations.quantity}`)
                   }
                 })
               })
             }
-            tableElement.append(row);
           })
           changeText(tableName, `Выгрузка отёта с W${forms.reporteditor.weekSelectorStart.getAttribute('value')} по W${forms.reporteditor.weekSelectorEnd.getAttribute('value')}`)
           break;
