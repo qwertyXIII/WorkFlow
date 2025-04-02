@@ -66,7 +66,9 @@ export async function generateReport(form, reportName) {
           //////////////////////////////////////////////////////////////
           break;
         case 'week':
+          // Задаем значения прогрессбару
           progressBarCurrentState.max = NumberOfRequests;
+          // Делаем столько запросов, за сколько недель нужно построить отчет
           for (let i = forms.reporteditor.weekSelectorStart.getAttribute('value'); i - 1 < forms.reporteditor.weekSelectorEnd.getAttribute('value'); i++) {
 
             await communicator(reportName, dateByWeekNumber(2025, i).startDate, dateByWeekNumber(2025, i).endDate)
@@ -87,6 +89,7 @@ export async function generateReport(form, reportName) {
             return a.definition.week - b.definition.week;
           })
 
+          // Здесь просто создайем хэдинг таблицы, прописываем где и что будет, растягиваем столбцы так как нужно 
           row = document.createElement('tr');
           row.appendChild(addCell('table__heading', 'Сотрудник', '', 2, ''));
           if (forms.reporteditor.accessoriesSwitch.checked) {
@@ -106,6 +109,7 @@ export async function generateReport(form, reportName) {
           }
           tableElement.append(row);
 
+          // Тут создаем макет шапки прописываем все недели и добавляем тайтл с инфо когда нчаалась и закончилась неделя
           row = document.createElement('tr');
           if (forms.reporteditor.accessoriesSwitch.checked) {
             for (let i = forms.reporteditor.weekSelectorStart.getAttribute('value'); i - 1 < forms.reporteditor.weekSelectorEnd.getAttribute('value'); i++) {
@@ -134,27 +138,16 @@ export async function generateReport(form, reportName) {
           }
           tableElement.append(row);
 
+          // Создаем массив с уникальными именами (Мы же не знаем сколько разных продавцов работало в каждой недели) Собираем все имена в общий вмассив, после чего вычленяем только уникальные
           let unique = [];
           localDB.array.forEach((e) => {
             e.indicators.forEach((employee) => {
               unique.push(employee)
             })
           })
-
           unique = countUniqueArray(unique, 'name')
 
-
-
-
-
-
-
-
-
-
-
-
-            // ТУут создается структура таблицы, добавляются все ячейки и присваивается класс - "индитификатор"
+          // ТУут создается структура таблицы, добавляются все ячейки и присваивается класс - "индитификатор"
           unique.forEach((e) => {
             row = document.createElement('tr');
             row.appendChild(addCell('table__cell', e, '', '', ''));
@@ -162,7 +155,7 @@ export async function generateReport(form, reportName) {
             if (forms.reporteditor.accessoriesSwitch.checked) {
               for (let i = forms.reporteditor.weekSelectorStart.getAttribute('value'); i - 1 < forms.reporteditor.weekSelectorEnd.getAttribute('value'); i++) {
                 console.log(e.match(/\d+/g));
-                
+
                 row.appendChild(addCell('table__cell', '', '', '', '', [`accessories${e.match(/\d+/g)}w${i}`]));
               }
             }
@@ -189,31 +182,19 @@ export async function generateReport(form, reportName) {
             tableElement.append(row);
           })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
           //Вставляем значения в ячейки 
           unique.forEach((eName) => {
             if (forms.reporteditor.accessoriesSwitch.checked) {
               localDB.array.forEach((arrEl) => {
-                console.log(arrEl);
-                
                 arrEl.indicators.forEach((employee) => {
                   if (employee.name === eName) {
                     let cell = tableElement.querySelector(`.accessories${eName.match(/\d+/g)}w${arrEl.definition.week}`)
-                    cell.innerHTML = round(employee.products.accessories.sum / employee.total * 100, 2) + '%'
+                    //cell.innerHTML = round(employee.products.accessories.sum / employee.total * 100, 2) + '%'
                     cell.setAttribute('title', `[Аксессуары] W${arrEl.definition.week} Сумма: ${employee.products.accessories.sum}, Количество: ${employee.products.accessories.quantity}`)
+                  
+                    setTimeout(() => { 
+                      changeText(cell, round(employee.products.accessories.sum / employee.total * 100, 2) + '%')
+                     }, Math.floor(100 + Math.random() * (1000 + 1 - 100)))
                   }
                 })
               })
@@ -223,8 +204,12 @@ export async function generateReport(form, reportName) {
                 arrEl.indicators.forEach((employee) => {
                   if (employee.name === eName) {
                     let cell = tableElement.querySelector(`.services${eName.match(/\d+/g)}w${arrEl.definition.week}`)
-                    cell.innerHTML = round(employee.products.services.sum / employee.total * 100, 2) + '%'
+                    //cell.innerHTML = round(employee.products.services.sum / employee.total * 100, 2) + '%'
                     cell.setAttribute('title', `[Услуги] W${arrEl.definition.week} Сумма: ${employee.products.services.sum}, Количество: ${employee.products.services.quantity}`)
+                  
+                    setTimeout(() => { 
+                      changeText(cell, round(employee.products.services.sum / employee.total * 100, 2) + '%')
+                     }, Math.floor(100 + Math.random() * (1000 + 1 - 100)))
                   }
                 })
               })
@@ -234,8 +219,12 @@ export async function generateReport(form, reportName) {
                 arrEl.indicators.forEach((employee) => {
                   if (employee.name === eName) {
                     let cell = tableElement.querySelector(`.insurance${eName.match(/\d+/g)}w${arrEl.definition.week}`)
-                    cell.innerHTML = round(employee.products.insurance.sum / employee.total * 100, 2) + '%'
+                    //cell.innerHTML = round(employee.products.insurance.sum / employee.total * 100, 2) + '%'
                     cell.setAttribute('title', `[БС] W${arrEl.definition.week} Сумма: ${employee.products.insurance.sum}, Количество: ${employee.products.insurance.quantity}`)
+                  
+                    setTimeout(() => { 
+                      changeText(cell, round(employee.products.insurance.sum / employee.total * 100, 2) + '%')
+                     }, Math.floor(100 + Math.random() * (1000 + 1 - 100)))
                   }
                 })
               })
@@ -245,8 +234,12 @@ export async function generateReport(form, reportName) {
                 arrEl.indicators.forEach((employee) => {
                   if (employee.name === eName) {
                     let cell = tableElement.querySelector(`.armorjack${eName.match(/\d+/g)}w${arrEl.definition.week}`)
-                    cell.innerHTML = round(employee.products.services.armorjack.quantity / employee.products.main.mobile.quantity * 100, 2) + '%'
+                    //cell.innerHTML = round(employee.products.services.armorjack.quantity / employee.products.main.mobile.quantity * 100, 2) + '%'
                     cell.setAttribute('title', `[AJ] W${arrEl.definition.week} Количество AJ: ${employee.products.services.armorjack.quantity}шт, Количество  Mobile: ${employee.products.main.mobile.quantity}шт`)
+                  
+                    setTimeout(() => { 
+                      changeText(cell, round(employee.products.services.armorjack.quantity / employee.products.main.mobile.quantity * 100, 2) + '%')
+                     }, Math.floor(100 + Math.random() * (1000 + 1 - 100)))
                   }
                 })
               })
@@ -256,8 +249,12 @@ export async function generateReport(form, reportName) {
                 arrEl.indicators.forEach((employee) => {
                   if (employee.name === eName) {
                     let cell = tableElement.querySelector(`.installations${eName.match(/\d+/g)}w${arrEl.definition.week}`)
-                    cell.innerHTML = round(employee.products.services.installations.sum / employee.total * 100, 2) + '%'
+                    //cell.innerHTML = round(employee.products.services.installations.sum / employee.total * 100, 2) + '%'
                     cell.setAttribute('title', `[Установки] W${arrEl.definition.week} Сумма: ${employee.products.services.installations.sum}, Количество: ${employee.products.services.installations.quantity}`)
+                  
+                    setTimeout(() => { 
+                      changeText(cell, round(employee.products.services.installations.sum / employee.total * 100, 2) + '%')
+                     }, Math.floor(100 + Math.random() * (1000 + 1 - 100)))
                   }
                 })
               })
