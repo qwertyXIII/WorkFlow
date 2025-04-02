@@ -16,6 +16,7 @@ import { dateByWeekNumber } from "./dateByWeekNumber.js";
 import {
   arrayToNormilizeObj,
   convertStringToHTML,
+  countUniqueArray,
   toArrayOfHTML
 } from "./parser.js";
 import {
@@ -26,10 +27,10 @@ function round(value, num) {
   return +value.toFixed(num);
 }
 
-function addCell(cssSelector, text, tlte, rowspan, colspan) {
+function addCell(cssClass, text, tlte, rowspan, colspan) {
   let td;
   td = document.createElement('td');
-  td.classList.add('table__element', cssSelector);
+  td.classList.add('table__element', cssClass);
   if (tlte !== '') {
     td.setAttribute('title', tlte)
   }
@@ -58,6 +59,27 @@ export async function generateReport(form, reportName) {
           //////////////////////////////////////////////////////////////
           break;
         case 'week':
+          progressBarCurrentState.max = NumberOfRequests;
+          for (let i = forms.reporteditor.weekSelectorStart.getAttribute('value'); i - 1 < forms.reporteditor.weekSelectorEnd.getAttribute('value'); i++) {
+
+            await communicator(reportName, dateByWeekNumber(2025, i).startDate, dateByWeekNumber(2025, i).endDate)
+              .then(data => {
+                localDB.array.push(
+                  arrayToNormilizeObj(toArrayOfHTML(convertStringToHTML(data).querySelector('.tableX')), i, dateByWeekNumber(2025, i).startDate, dateByWeekNumber(2025, i).endDate)
+                )
+                progressBarUpdate(headerProgressbar, 'ok');
+              }).catch((err) => {
+                progressBarUpdate(headerProgressbar, 'error');
+                console.log(err);
+                localLog.push(err);
+                changeText(tableName, `Во время построения отчета возникла ошибка. Попробуйте еще раз.`)
+                return
+              });
+          }
+          localDB.array.sort((a, b) => {
+            return a.definition.week - b.definition.week;
+          })
+
           row = document.createElement('tr');
           row.appendChild(addCell('table__heading', 'Сотрудник', '', 2, ''));
           if (forms.reporteditor.accessoriesSwitch.checked) {
@@ -77,8 +99,6 @@ export async function generateReport(form, reportName) {
           }
           tableElement.append(row);
 
-
-
           row = document.createElement('tr');
           if (forms.reporteditor.accessoriesSwitch.checked) {
             for (let i = forms.reporteditor.weekSelectorStart.getAttribute('value'); i - 1 < forms.reporteditor.weekSelectorEnd.getAttribute('value'); i++) {
@@ -108,84 +128,84 @@ export async function generateReport(form, reportName) {
           tableElement.append(row);
 
 
-
-          progressBarCurrentState.max = NumberOfRequests;
-          for (let i = forms.reporteditor.weekSelectorStart.getAttribute('value'); i - 1 < forms.reporteditor.weekSelectorEnd.getAttribute('value'); i++) {
-
-            await communicator(reportName, dateByWeekNumber(2025, i).startDate, dateByWeekNumber(2025, i).endDate)
-              .then(data => {
-                localDB.array.push(
-                  arrayToNormilizeObj(toArrayOfHTML(convertStringToHTML(data).querySelector('.tableX')), i, dateByWeekNumber(2025, i).startDate, dateByWeekNumber(2025, i).endDate)
-                )
-                progressBarUpdate(headerProgressbar, 'ok');
-              }).catch((err) => {
-                progressBarUpdate(headerProgressbar, 'error');
-                console.log(err);
-                localLog.push(err)
-              });
-          }
-          localDB.array.sort((a, b) => {
-            return a.definition.week - b.definition.week;
-          })
-          console.log(localDB);
-
-
-
-
+          let unique = [];
           localDB.array.forEach((e) => {
-
             e.indicators.forEach((employee) => {
-              row = document.createElement('tr');
-              let td;
-              row.appendChild(addCell('table__cell', employee.name));
-
-              /* 
-              row.appendChild(addCell(
-                'table__cell',
-                'text',
-                'title'
-              ));
-              */
-
-              if (forms.reporteditor.accessoriesSwitch.checked) {
-                row.appendChild(addCell(
-                  'table__cell',
-                  round(employee.products.accessories.sum / employee.total * 100, 2) + '%',
-                  `[Аксессуары] Сумма: ${employee.products.accessories.sum}, Количество: ${employee.products.accessories.quantity}`
-                ));
-              }
-              if (forms.reporteditor.servicesSwitch.checked) {
-                row.appendChild(addCell(
-                  'table__cell',
-                  round(employee.products.services.sum / employee.total * 100, 2) + '%',
-                  `[Услуги] Сумма: ${employee.products.services.sum}, Количество: ${employee.products.services.quantity}`
-                ));
-              }
-              if (forms.reporteditor.insuranceSwitch.checked) {
-                row.appendChild(addCell(
-                  'table__cell',
-                  round(employee.products.insurance.sum / employee.total * 100, 2) + '%',
-                  `[БС] Сумма: ${employee.products.insurance.sum}, Количество: ${employee.products.insurance.quantity}`
-                ));
-              }
-              if (forms.reporteditor.armorjackSwitch.checked) {
-                
-                row.appendChild(addCell(
-                  'table__cell',
-                  round(employee.products.services.armorjack.quantity / employee.products.main.mobile.quantity * 100, 2) + '%',
-                  `[AJ] Количество AJ: ${employee.products.services.armorjack.quantity}шт, Количество  Mobile: ${employee.products.main.mobile.quantity}шт`
-                ));
-              }
-              if (forms.reporteditor.installationsSwitch.checked) {
-                row.appendChild(addCell(
-                  'table__cell',
-                  round(employee.products.services.installations.sum / employee.total * 100, 2) + '%',
-                  `[Установки] Сумма: ${employee.products.services.installations.sum}, Количество: ${employee.products.services.installations.quantity}`
-                ));
-              }
-
-              tableElement.append(row);
+              unique.push(employee)
             })
+          })
+
+          unique = countUniqueArray(unique, 'name')
+
+          unique.forEach((eName) => {
+            row = document.createElement('tr');
+            row.appendChild(addCell('table__cell', eName));
+            if (forms.reporteditor.accessoriesSwitch.checked) {
+              localDB.array.forEach((arrEl) => {
+                arrEl.indicators.forEach((employee) => {
+                  if (employee.name === eName) {
+                    row.appendChild(addCell(
+                      'table__cell',
+                      round(employee.products.accessories.sum / employee.total * 100, 2) + '%',
+                      `[Аксессуары] W${arrEl.definition.week} Сумма: ${employee.products.accessories.sum}, Количество: ${employee.products.accessories.quantity}`
+                    ));
+                  }
+                })
+              })
+            }
+            if (forms.reporteditor.servicesSwitch.checked) {
+              localDB.array.forEach((arrEl) => {
+                arrEl.indicators.forEach((employee) => {
+                  if (employee.name === eName) {
+                    row.appendChild(addCell(
+                      'table__cell',
+                      round(employee.products.services.sum / employee.total * 100, 2) + '%',
+                      `[Услуги] W${arrEl.definition.week} Сумма: ${employee.products.services.sum}, Количество: ${employee.products.services.quantity}`
+                    ));
+                  }
+                })
+              })
+            }
+            if (forms.reporteditor.insuranceSwitch.checked) {
+              localDB.array.forEach((arrEl) => {
+                arrEl.indicators.forEach((employee) => {
+                  if (employee.name === eName) {
+                    row.appendChild(addCell(
+                      'table__cell',
+                      round(employee.products.insurance.sum / employee.total * 100, 2) + '%',
+                      `[БС] W${arrEl.definition.week} Сумма: ${employee.products.insurance.sum}, Количество: ${employee.products.insurance.quantity}`
+                    ));
+                  }
+                })
+              })
+            }
+            if (forms.reporteditor.armorjackSwitch.checked) {
+              localDB.array.forEach((arrEl) => {
+                arrEl.indicators.forEach((employee) => {
+                  if (employee.name === eName) {
+                    row.appendChild(addCell(
+                      'table__cell',
+                      round(employee.products.services.armorjack.quantity / employee.products.main.mobile.quantity * 100, 2) + '%',
+                      `[AJ] W${arrEl.definition.week} Количество AJ: ${employee.products.services.armorjack.quantity}шт, Количество  Mobile: ${employee.products.main.mobile.quantity}шт`
+                    ));
+                  }
+                })
+              })
+            }
+            if (forms.reporteditor.installationsSwitch.checked) {
+              localDB.array.forEach((arrEl) => {
+                arrEl.indicators.forEach((employee) => {
+                  if (employee.name === eName) {
+                    row.appendChild(addCell(
+                      'table__cell',
+                      round(employee.products.services.installations.sum / employee.total * 100, 2) + '%',
+                      `[Установки] W${arrEl.definition.week} Сумма: ${employee.products.services.installations.sum}, Количество: ${employee.products.services.installations.quantity}`
+                    ));
+                  }
+                })
+              })
+            }
+            tableElement.append(row);
           })
           changeText(tableName, `Выгрузка отёта с W${forms.reporteditor.weekSelectorStart.getAttribute('value')} по W${forms.reporteditor.weekSelectorEnd.getAttribute('value')}`)
           break;
