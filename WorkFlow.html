@@ -219,7 +219,7 @@
           <div class="multi-switcher__toggler"></div>
         </div>
 
-        <div class="report-editor__container report-editor__selectors report-editor__week-picker">
+        <div class="report-editor__container report-editor__selectors report-editor__week-picker date-selector" type="week">
           <div class="selector startweek" value="-">
             <div class="selector__element" value="1"  id="start-week-selector-1" >W1</div>
             <div class="selector__element" value="2"  id="start-week-selector-2" >W2</div>
@@ -375,21 +375,22 @@
 
 
 
-
-
-
-        <div class="report-editor__container report-editor__selectors report-editor__day-picker report-editor__selectors_hidden">
-          <div class="selector startweek" value="-">
-            <div class="selector__element" value="01"  id="" >01</div>
+        <div class="report-editor__container report-editor__selectors report-editor__day-picker report-editor__selectors_hidden date-selector">
+          <div class="date-selector start-date-test"  type="full-date">
+            <div class="selector day" value="-">
+              <div class="selector__element" value="01"  id="" >01</div>
+            </div>
+  
+            <div class="selector mouth" value="-">
+              <div class="selector__element" value="01"  id="end-week-selector-1" >Янв</div>
+            </div>
+  
+            <div class="selector year" value="-">
+              <div class="selector__element" value="2020"  id="" >2020</div>
+            </div>
           </div>
 
-          <div class="selector endweek" value="-">
-            <div class="selector__element" value="01"  id="end-week-selector-1" >Янв</div>
-          </div>
 
-          <div class="selector stu88artYor" value="-">
-            <div class="selector__element" value="2020"  id="" >2020</div>
-          </div>
 
           <svg class="report-editor__week-picker-arrow" viewBox="0 0 16 22" fill=&quot;#HEX_COLOR&quot
             xmlns="http://www.w3.org/2000/svg">
@@ -397,17 +398,20 @@
               d="M14.6304 11.0068C14.6304 11.123 14.6082 11.2337 14.564 11.3389C14.5197 11.4385 14.4533 11.5298 14.3647 11.6128L5.83154 19.8223C5.67106 19.9827 5.47461 20.063 5.24219 20.063C5.08724 20.063 4.94613 20.027 4.81885 19.9551C4.6971 19.8831 4.59749 19.7835 4.52002 19.6562C4.44808 19.5345 4.41211 19.3934 4.41211 19.2329C4.41211 19.0116 4.49235 18.8179 4.65283 18.6519L12.605 11.0068L4.65283 3.35352C4.49235 3.1875 4.41211 2.99382 4.41211 2.77246C4.41211 2.61751 4.44808 2.47917 4.52002 2.35742C4.59749 2.23014 4.6971 2.13053 4.81885 2.05859C4.94613 1.98665 5.08724 1.95068 5.24219 1.95068C5.47461 1.95068 5.67106 2.03092 5.83154 2.19141L14.3647 10.4009C14.4533 10.4839 14.5197 10.5752 14.564 10.6748C14.6082 10.7744 14.6304 10.8851 14.6304 11.0068Z"
               fill=&quot;#HEX_COLOR&quot />
           </svg>
-          
-          <div class="selector endweek" value="-">
-            <div class="selector__element" value="01"  id="end-week-selector-1" >01</div>
-          </div>
 
-          <div class="selector endweek" value="-">
-            <div class="selector__element" value="01"  id="end-week-selector-1" >Янв</div>
-          </div>
 
-          <div class="selector startYor" value="-">
-            <div class="selector__element y2020" value="2020"  id="" >2020</div>
+          <div class="date-selector"  type="full-date">
+            <div class="selector day" value="-">
+              <div class="selector__element" value="01"  id="" >01</div>
+            </div>
+  
+            <div class="selector mouth" value="-">
+              <div class="selector__element" value="01"  id="end-week-selector-1" >Янв</div>
+            </div>
+  
+            <div class="selector year" value="-">
+              <div class="selector__element" value="2020"  id="" >2020</div>
+            </div>
           </div>
         </div>
 
@@ -415,7 +419,7 @@
 
 
 
-        <div class="report-editor__container report-editor__selectors report-editor__mouth-picker report-editor__selectors_hidden">
+        <div class="report-editor__container report-editor__selectors report-editor__mouth-picker report-editor__selectors_hidden date-selector" type="mouth">
 
           <div class="selector endweek" value="-">
             <div class="selector__element" value="01"  id="end-week-selector-1" >Январь</div>
@@ -440,30 +444,6 @@
             <div class="selector__element y2020" value="2020"  id="" >2025</div>
           </div>
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <!--
-        <input class="report-editor__date-picker start-date" type="date" name="start-date">
-        <input class="report-editor__date-picker end-date" type="date" name="start-date">
-        -->
 
         <p class="report-editor__subtitle">Параметры отчета</p>
         <ul class="text ul popup__ul">
@@ -687,6 +667,7 @@
   <script type="module" src="./components/generateReport.js"></script>
   <script type="module" src="./components/parser.js"></script>
   <script type="module" src="./components/progressBarUpdate.js"></script>
+  <script type="module" src="./components/dateSelector.js"></script>
 </body>
 
 </html>
