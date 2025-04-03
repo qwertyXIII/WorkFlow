@@ -1,3 +1,5 @@
+
+/*
 export const circleSelector = {
   run: function(setting) {
     let type = element.getAttribute('type')
@@ -18,3 +20,5 @@ export const circleSelector = {
 
 
 circleSelector.run(document.querySelector('.start-date-test'))
+
+*/
