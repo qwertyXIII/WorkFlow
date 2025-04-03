@@ -170,9 +170,6 @@ document.querySelector('#close-report-editor').addEventListener('click', () => {
 // Форма генерации отчета
 forms.reporteditor.form.addEventListener('submit', (e) => {
   e.preventDefault();
-
-
-
   localDB.array = [];
   generateReport(e, 'penitration')
 });
@@ -187,10 +184,6 @@ selectors.forEach(element => {
 const date = new Date;
 forms.reporteditor.weekSelectorStart.querySelector(`#start-week-selector-${date.getWeek()}`).scrollIntoView()
 forms.reporteditor.weekSelectorEnd.querySelector(`#end-week-selector-${date.getWeek()}`).scrollIntoView()
-
-
-
-
 
 window.onload = () => {
   setTimeout(() => {
