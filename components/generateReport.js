@@ -66,6 +66,7 @@ export async function generateReport(form, reportName) {
           //////////////////////////////////////////////////////////////
           break;
         case 'week':
+          changeText(tableName, `Построение отчёта`)
           // Задаем значения прогрессбару
           progressBarCurrentState.max = NumberOfRequests;
           // Делаем столько запросов, за сколько недель нужно построить отчет
@@ -76,19 +77,20 @@ export async function generateReport(form, reportName) {
                 localDB.array.push(
                   arrayToNormilizeObj(toArrayOfHTML(convertStringToHTML(data).querySelector('.tableX')), i, dateByWeekNumber(2025, i).startDate, dateByWeekNumber(2025, i).endDate)
                 )
-                changeText(tableName, `Отчёт с W${forms.reporteditor.weekSelectorStart.getAttribute('value')} по W${forms.reporteditor.weekSelectorEnd.getAttribute('value')}`)
                 progressBarUpdate(headerProgressbar, 'ok');
               }).catch((err) => {
                 progressBarUpdate(headerProgressbar, 'error');
                 console.log(err);
                 localLog.push(err);
-                changeText(tableName, `Во время построения отчета возникла ошибка. Попробуйте еще раз.`)
+                tableName.innerHTML = `Во время построения отчета возникла ошибка. Попробуйте еще раз.`
                 return
               });
           }
           localDB.array.sort((a, b) => {
             return a.definition.week - b.definition.week;
           })
+
+          changeText(tableName, `Отчёт с W${forms.reporteditor.weekSelectorStart.getAttribute('value')} по W${forms.reporteditor.weekSelectorEnd.getAttribute('value')}`)
 
           // Здесь просто создайем хэдинг таблицы, прописываем где и что будет, растягиваем столбцы так как нужно 
           row = document.createElement('tr');

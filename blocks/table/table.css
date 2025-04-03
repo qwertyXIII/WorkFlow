@@ -2,3 +2,11 @@
   min-width: max-content;
   margin: 0;
 }
+
+.table tr:nth-of-type(2n) {
+  background-color: #222;
+}
+
+.table tr:hover {
+  background-color: #333;
+}

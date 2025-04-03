@@ -178,7 +178,7 @@
         </g>
       </svg>
     </button>
-    <p class="button_sidebar sidebar__text_small">v0.3 "Is it ready?" [with ♡ by ÐXłłł]</p>
+    <p class="button_sidebar sidebar__text_small">v0.3.1 "Is it ready?" [with ♡ by ÐXłłł]</p>
   </section>
 
   <section class="workspace" id="report">
@@ -450,7 +450,7 @@
           <li>Учитывать при построении:</li>
         </ul>
         <div class="report-editor__container"
-          title="Считает долю аксессуаров проданных по отношению к общему обороту.&#013;Формула:&#013;общий оборот сотрудника / аксессуары * 100%">
+          title="Считает долю аксессуаров проданных по отношению к общему обороту.&#013;Формула:&#013;Сумма аксессуаров / Оборот сотрудника * 100">
           <p class="text report-editor__text"> Долю аксессуары</p>
           <div class="report-editor__switch switch">
             <input class="switch__input" type="checkbox" name="report-editor-switch-accessories"
@@ -460,7 +460,7 @@
         </div>
         <div class="separator"></div>
         <div class="report-editor__container"
-          title="Считает долю сертификатов 'Быстросервис' проданных по отношению к общему обороту.&#013;Формула:&#013;Оборот сотрудника / БС * 100%">
+          title="Считает долю сертификатов 'Быстросервис' проданных по отношению к общему обороту.&#013;Формула:&#013;Сумма БС / Оборот сотрудника * 100">
           <p class="text report-editor__text">Долю ВСК "БС"</p>
           <div class="report-editor__switch switch">
             <input class="switch__input" type="checkbox" name="report-editor-switch-insurance"
@@ -470,7 +470,7 @@
         </div>
         <div class="separator"></div>
         <div class="report-editor__container"
-          title="Считает долю всех услуг (наклейка AJ, Выездные услуги, подписки и сервисы, м.комбо и прочее), проданных по отношению к общему обороту. Сертификаты БС не учитываются.&#013;Формула:&#013;Оборот сотрудника / услуги * 100%">
+          title="Считает долю всех услуг (наклейка AJ, Выездные услуги, подписки и сервисы, м.комбо и прочее), проданных по отношению к общему обороту. Сертификаты БС не учитываются.&#013;Формула:&#013;Сумма услуг / Оборот сотрудника * 100">
           <p class="text report-editor__text">Долю услуг</p>
           <div class="report-editor__switch switch">
             <input class="switch__input" type="checkbox" name="report-editor-switch-services"
@@ -480,7 +480,7 @@
         </div>
         <div class="separator"></div>
         <div class="report-editor__container"
-          title="Считает долю Выездных услуг(Комфорт, МВМ) проданных по отношению к общему обороту.&#013;Формула:&#013;Оборот сотрудника / установки * 100%">
+          title="Считает долю Выездных услуг(Комфорт, МВМ) проданных по отношению к общему обороту.&#013;Формула:&#013;Оборот сотрудника / установки * 100">
           <p class="text report-editor__text">Долю установок</p>
           <div class="report-editor__switch switch">
             <input class="switch__input" type="checkbox" name="report-editor-switch-installations"
@@ -490,7 +490,7 @@
         </div>
         <div class="separator"></div>
         <div class="report-editor__container"
-          title="Считает долю пленок 'ArmorJack' проданных по отношению к общему обороту, без учета услуги наклейки плёнки.&#013;Формула:&#013;Оборот сотрудника / AJ * 100%">
+          title="Считает количество пленок 'ArmorJack' проданных по отношению к количеству устройств mobile (Смартфоны, планшеты), без учета услуги наклейки плёнки.&#013;Формула:&#013;кол-во AJ / кол-во Mobile * 100">
           <p class="text report-editor__text">Долю ArmorJack</p>
           <div class="report-editor__switch switch">
             <input class="switch__input" type="checkbox" name="report-editor-switch-armorjack"
@@ -512,48 +512,6 @@
     </div>
     <p class="text table__name">Тут будет отчёт</p>
     <table class="table">
-      <tr>
-        <td rowspan="2" class="text table__heading">Сотрудник</td>
-        <td colspan="4" class="text table__heading">Доля услуг</td>
-        <td colspan="4" class="text table__heading">Доля БС</td>
-        <td colspan="4" class="text table__heading">Доля AJ</td>
-        <td colspan="4" class="text table__heading">Доля Выездные услуги</td>
-      </tr>
-      <tr>
-        <td class="text table__text">W1</td>
-        <td class="text table__text">W2</td>
-        <td class="text table__text">W3</td>
-        <td class="text table__text">W4</td>
-
-        <td class="text table__text">W1</td>
-        <td class="text table__text">W2</td>
-        <td class="text table__text">W3</td>
-        <td class="text table__text">W4</td>
-
-        <td class="text table__text">W1</td>
-        <td class="text table__text">W2</td>
-        <td class="text table__text">W3</td>
-        <td class="text table__text">W4</td>
-
-        <td class="text table__text">W1</td>
-        <td class="text table__text">W2</td>
-        <td class="text table__text">W3</td>
-        <td class="text table__text">W4</td>
-      </tr>
-      <tr>
-        <td class="text table__cell">имя сотрудник 1</td>
-        <td class="text table__cell">показателль 1</td>
-        <td class="text table__cell">показатель 2</td>
-        <td class="text table__cell">показателль 3</td>
-        <td class="text table__cell">показатель 4</td>
-      </tr>
-      <tr>
-        <td class="text table__cell">Сотрудник 2</td>
-        <td class="text table__cell">показателль 1</td>
-        <td class="text table__cell">показатель 2</td>
-        <td class="text table__cell">показателль 3</td>
-        <td class="text table__cell">показатель 4</td>
-      </tr>
     </table>
   </section>
 
